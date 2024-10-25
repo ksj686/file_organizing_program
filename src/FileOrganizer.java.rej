@@ -1,0 +1,9 @@
+diff a/src/FileOrganizer.java b/src/FileOrganizer.java	(rejected hunks)
+@@ -9,6 +9,7 @@
+ public class FileOrganizer {
+     public static void main(String[] args) {
+         String directoryPath = "C:/test/test/test"; // 정리할 디렉토리 경로
++        organizeFiles(directoryPath); 
+     }
+ 
+     public static void organizeFiles(String directoryPath) {
