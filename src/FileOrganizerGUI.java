@@ -22,17 +22,19 @@ public class FileOrganizerGUI {
     public FileOrganizerGUI() {
         frame = new JFrame("파일 정리 도구");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
+        frame.setSize(500, 300);
         frame.setLayout(new BorderLayout());
 
         // 경로 입력 패널
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new FlowLayout());
         directoryField = new JTextField(20);
+        JButton browseButton = new JButton("찾아보기");
         JButton organizeButton = new JButton("정리하기");
 
         inputPanel.add(new JLabel("디렉토리 경로:"));
         inputPanel.add(directoryField);
+        inputPanel.add(browseButton);
         inputPanel.add(organizeButton);
 
         frame.add(inputPanel, BorderLayout.NORTH);
@@ -43,7 +45,21 @@ public class FileOrganizerGUI {
         JScrollPane scrollPane = new JScrollPane(logArea);
         frame.add(scrollPane, BorderLayout.CENTER);
 
-        // 버튼 이벤트 처리
+        // "찾아보기" 버튼 이벤트 처리
+        browseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                int returnValue = fileChooser.showOpenDialog(frame);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedDirectory = fileChooser.getSelectedFile();
+                    directoryField.setText(selectedDirectory.getAbsolutePath());
+                }
+            }
+        });
+
+        // "정리하기" 버튼 이벤트 처리
         organizeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
